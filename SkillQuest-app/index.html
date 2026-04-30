@@ -1,0 +1,1870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkillQuest ⚔️ Gamified Learning Platform</title>
+  <meta name="description" content="Learn to code through immersive missions, boss fights and epic challenges in the SkillQuest universe.">
+
+  <!-- Google Fonts preconnect for fastest possible load -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Primary: Google Fonts CDN -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+    >
+  <link rel="preload" as="image" href="../codeing world/introduction level.jpeg" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/characters/nova.png" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/characters/juhi.png" fetchpriority="high">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/gameFeedback.css">
+  <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
+</head>
+<body>
+
+  <!-- ⚡ LAYER 0: Parallax Background ⚡ -->
+  <div id="game-bg" class="game-bg"></div>
+
+  <!-- ⚡ LAYER 1: Particle Canvas ⚡ -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- ⚡ LAYER 2: All Screens ⚡ -->
+  <div id="app-container" class="app-container">
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 1: CHARACTER SELECTION
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-selection" class="screen active">
+      <div class="selection-header">
+        <h1 class="neon-text glow-blue">Select Your AI Guide</h1>
+        <p class="story-text">Your choice determines your interface style and tactical advice.</p>
+      </div>
+      <div class="character-cards">
+
+        <!-- Nova Card -->
+        <div class="char-card premium-card" data-guide="nova" onclick="selectGuide('nova')">
+          <div class="char-rank">ELITE RANK</div>
+          <div class="char-img-inner">
+            <img src="assets/characters/nova.png" alt="Nova" class="agent-avatar" loading="lazy">
+            <div class="avatar-glow color-blue"></div>
+          </div>
+          <div class="char-info">
+            <h2 class="char-name">NOVA <span class="badge-v">Protocol X</span></h2>
+            <div class="char-specs">
+              <span><i class="ph-bold ph-cpu"></i> LOGIC: 98%</span>
+              <span><i class="ph-bold ph-code"></i> SYNTAX: 95%</span>
+            </div>
+            <p class="char-bio">Neural-link specialist. Nova provides cold, calculated efficiency and high-speed data analysis.</p>
+          </div>
+          <div class="card-action">
+            <button class="game-btn btn-blue" style="pointer-events: none;">INITIALIZE NOVA</button>
+          </div>
+        </div>
+
+        <!-- Juhi Card -->
+        <div class="char-card premium-card" data-guide="juhi" onclick="selectGuide('juhi')">
+          <div class="char-rank">CRAFT RANK</div>
+          <div class="char-img-inner">
+            <img src="assets/characters/juhi.png" alt="Juhi" class="agent-avatar" loading="lazy">
+            <div class="avatar-glow color-pink"></div>
+          </div>
+          <div class="char-info">
+            <h2 class="char-name neon-pink">JUHI <span class="badge-v">Elite Design</span></h2>
+            <div class="char-specs">
+              <span><i class="ph-bold ph-palette"></i> DESIGN: 92%</span>
+              <span><i class="ph-bold ph-users"></i> UX: 99%</span>
+            </div>
+            <p class="char-bio">Master of aesthetics and human-centered design. Juhi transforms complex code into beautiful art.</p>
+          </div>
+          <div class="card-action">
+            <button class="game-btn btn-pink" style="pointer-events: none;">INITIALIZE JUHI</button>
+          </div>
+        </div>
+
+
+
+      </div>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 1.5: PATHWAY SELECTION
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-pathway" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text">Choose Your Path</h1>
+        <p>What kind of warrior do you want to become?</p>
+      </div>
+      <div class="action-buttons" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; max-width: 800px; margin: 0 auto; margin-top: 3rem;">
+        <button class="game-btn btn-red btn-large" onclick="selectPathway('Java')">☕ Java</button>
+        <button class="game-btn btn-blue btn-large" onclick="selectPathway('Python')">🐍 Python</button>
+        <button class="game-btn btn-cyan btn-large" onclick="selectPathway('C')">💻 C</button>
+        <button class="game-btn btn-pink btn-large" onclick="selectPathway('Design')">🎨 Design</button>
+        <button class="game-btn btn-green btn-large" onclick="selectPathway('JavaScript')">⚡ JavaScript</button>
+        <button class="game-btn btn-purple btn-large" onclick="selectPathway('HTML')">🌐 HTML</button>
+        <button class="game-btn btn-cyan btn-large" onclick="selectPathway('CSS')">🎨 CSS</button>
+        <button class="game-btn btn-hollow btn-large" onclick="selectPathway('C++')">🔧 C++</button>
+      </div>
+    </section>
+    
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: PAYMENTS & SUBSCRIPTION
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-payments" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-purple">Knight Subscription</h1>
+        <p>Unlock the full potential of your coding journey.</p>
+      </div>
+
+      <div class="pricing-container" style="display: flex; gap: 2rem; justify-content: center; align-items: stretch; max-width: 1000px; margin: 3rem auto; padding: 0 1rem;">
+        
+        <!-- Free Tier -->
+        <div class="glass-panel pricing-card" style="flex: 1; padding: 2rem; display: flex; flex-direction: column; border: 1px solid rgba(255,255,255,0.1);">
+          <div style="font-family: var(--font-display); font-size: 0.8rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 0.5rem;">BASIC</div>
+          <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1.5rem;">FREE</h2>
+          <ul style="list-style: none; padding: 0; margin-bottom: 2rem; flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 0.9;">
+              <i class="ph-bold ph-check-circle" style="color: var(--neon-green);"></i> 2 Learning Tracks
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 0.9;">
+              <i class="ph-bold ph-check-circle" style="color: var(--neon-green);"></i> Daily Challenges
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 0.9;">
+              <i class="ph-bold ph-check-circle" style="color: var(--neon-green);"></i> Global Leaderboard
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 0.4; text-decoration: line-through;">
+              <i class="ph-bold ph-x-circle"></i> AI Missions & Personalized Paths
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 0.4; text-decoration: line-through;">
+              <i class="ph-bold ph-x-circle"></i> AI Mock Tests
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 0.4; text-decoration: line-through;">
+              <i class="ph-bold ph-x-circle"></i> Friend Challenges
+            </li>
+          </ul>
+          <button class="game-btn btn-hollow" disabled style="width: 100%; justify-content: center;">CURRENT PLAN</button>
+        </div>
+
+        <!-- Pro Tier -->
+        <div class="glass-panel pricing-card pro-card" style="flex: 1; padding: 2rem; display: flex; flex-direction: column; border: 2px solid var(--neon-purple); position: relative; background: rgba(157, 0, 255, 0.05);">
+          <div class="pro-badge" style="position: absolute; top: -12px; right: 20px; background: var(--neon-purple); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; font-family: var(--font-display);">MOST POPULAR</div>
+          <div style="font-family: var(--font-display); font-size: 0.8rem; color: var(--neon-purple); letter-spacing: 2px; margin-bottom: 0.5rem;">ELITE</div>
+          <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem;">PRO</h2>
+          <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;">$9.99 / month</div>
+          <ul style="list-style: none; padding: 0; margin-bottom: 2rem; flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 1;">
+              <i class="ph-fill ph-check-circle" style="color: var(--neon-purple);"></i> ALL Learning Tracks
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 1;">
+              <i class="ph-fill ph-check-circle" style="color: var(--neon-purple);"></i> AI-Powered Missions
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 1;">
+              <i class="ph-fill ph-check-circle" style="color: var(--neon-purple);"></i> AI Mock Tests & Feedback
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 1;">
+              <i class="ph-fill ph-check-circle" style="color: var(--neon-purple);"></i> Friend Challenges
+            </li>
+            <li style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; opacity: 1;">
+              <i class="ph-fill ph-check-circle" style="color: var(--neon-purple);"></i> Priority AI Support
+            </li>
+          </ul>
+          <button class="game-btn btn-purple" style="width: 100%; justify-content: center; box-shadow: 0 0 20px rgba(157, 0, 255, 0.4);" onclick="openCheckout()">UPGRADE NOW</button>
+        </div>
+
+      </div>
+
+      <!-- Checkout Overlay (Hidden) -->
+      <div id="checkout-overlay" class="glass-panel" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; padding: 2rem; z-index: 10000; border: 1px solid var(--neon-purple); box-shadow: 0 0 50px rgba(0,0,0,0.8);">
+        <h2 class="neon-text" style="margin-bottom: 1.5rem;">Sandbox Checkout</h2>
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+            <span>SkillQuest Pro Plan</span>
+            <span>$9.99</span>
+          </div>
+          <div style="height: 1px; background: rgba(255,255,255,0.1);"></div>
+          <div style="display: flex; justify-content: space-between; font-weight: bold;">
+            <span>Total Due Today</span>
+            <span class="neon-text">$9.99</span>
+          </div>
+        </div>
+        <div id="checkout-status" style="margin-bottom: 1.5rem; font-size: 0.8rem; text-align: center; height: 20px;"></div>
+        <button class="game-btn btn-purple" id="btn-complete-purchase" style="width: 100%; justify-content: center;" onclick="processPurchase()">COMPLETE PURCHASE</button>
+        <button class="game-btn btn-hollow" style="width: 100%; justify-content: center; margin-top: 0.5rem;" onclick="closeCheckout()">CANCEL</button>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ Back</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 2: DASHBOARD (HOME)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-dashboard" class="screen">
+
+      <!-- Top Space (Minimalist) -->
+      <div class="top-hud-minimal">
+        <!-- Profile Block (New) -->
+        <div class="profile-block-mini" id="profile-trigger" onclick="navigateTo('screen-profile')">
+          <div class="avatar-ring-mini">
+            <img src="" alt="Avatar" id="dashboard-avatar" class="mini-avatar">
+            <div class="lvl-badge-mini" id="dashboard-lvl">10</div>
+          </div>
+          <div class="profile-info-mini">
+            <span class="p-name-mini" id="dashboard-player-name">SkillQuest_01</span>
+            <span class="p-rank-mini" id="dashboard-player-rank">ELITE KNIGHT</span>
+          </div>
+        </div>
+
+        <div class="streak-badge glass-panel hover-lift" id="streak-badge-main">
+          <span class="streak-fire">🔥</span> <span id="streak-val">15</span>-Day Streak
+        </div>
+
+        <button class="game-btn btn-purple btn-small" id="btn-upgrade-pro" onclick="navigateTo('screen-payments')" style="margin-left: auto; margin-right: 1rem;">
+          <i class="ph-bold ph-crown"></i> UPGRADE
+        </button>
+      </div>
+
+      <!-- Dashboard content -->
+      <div class="dashboard-content">
+        <!-- Profile Hub Hero (Newly Integrated) -->
+        <div class="profile-hub-hero animate-in" id="profile-hub" onclick="navigateTo('screen-profile')">
+          <div class="ph-avatar-wrap">
+            <div class="ph-avatar-ring"></div>
+            <img src="" alt="Avatar" id="ph-avatar-img" class="ph-avatar">
+            <div class="ph-lvl-tag" id="ph-lvl">10</div>
+          </div>
+          
+          <div class="ph-info">
+            <div class="ph-welcome">WELCOME BACK,</div>
+            <h1 class="ph-name neon-text" id="ph-name">SkillQuest_01</h1>
+            <div class="ph-rank-badge" id="ph-rank">ELITE KNIGHT</div>
+            
+            <div class="ph-progress-track">
+              <div class="ph-xp-header">
+                <span class="ph-xp-label">EXPERIENCE</span>
+                <span class="ph-xp-val"><span id="ph-xp-cur">700</span> / <span id="ph-xp-max">1000</span> XP</span>
+              </div>
+              <div class="ph-xp-bar-outer">
+                <div class="ph-xp-bar-inner" id="ph-xp-fill" style="width: 70%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ph-stats-grid">
+            <div class="ph-stat-item">
+              <span class="ph-stat-label">SYNTAX</span>
+              <div class="ph-mini-bar"><div class="ph-mini-fill" id="ph-mastery-syntax" style="width: 85%"></div></div>
+            </div>
+            <div class="ph-stat-item">
+              <span class="ph-stat-label">LOGIC</span>
+              <div class="ph-mini-bar"><div class="ph-mini-fill" id="ph-mastery-logic" style="width: 70%"></div></div>
+            </div>
+            <div class="ph-stat-item">
+              <span class="ph-stat-label">DESIGN</span>
+              <div class="ph-mini-bar"><div class="ph-mini-fill" id="ph-mastery-design" style="width: 45%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-panel dashboard-menu">
+          <div class="action-buttons">
+            <button class="game-btn btn-cyan btn-large" id="btn-worldmap" onclick="navigateTo('screen-map')">🗺️ World Map</button>
+            <button class="game-btn btn-purple btn-large" id="btn-training-dash" onclick="navigateTo('screen-training')">⚔️ Training</button>
+            <button class="game-btn btn-pink btn-large" id="btn-leaderboard-dash" onclick="navigateTo('screen-leaderboard')">🏆 Leaderboard</button>
+            <button class="game-btn btn-blue btn-large" id="btn-learning-paths" onclick="navigateTo('screen-learning-paths'); loadLearningPaths();">📚 Learning Paths</button>
+            <button class="game-btn btn-purple btn-large" id="btn-ai-mock-test" onclick="PaymentsSystem.showMockTest()">🤖 AI Mock Test</button>
+            <button class="game-btn btn-cyan btn-large" id="btn-friend-challenges" onclick="PaymentsSystem.showFriendChallenges()">👥 Friend Challenges</button>
+          </div>
+        </div>
+
+        <!-- AI Insight Panel -->
+        <div class="ai-insight-panel glass-panel" id="ai-insight-panel">
+          <div class="insight-header">
+            <i class="ph-fill ph-brain"></i>
+            <h3>NEURAL DIAGNOSTICS</h3>
+          </div>
+          <div class="insight-content">
+            <p id="ai-insight-text">Analyzing performance patterns... Your syntax consistency is improving. Recommended focus: Advanced Logic gates.</p>
+          </div>
+          <button class="game-btn btn-hollow btn-small" onclick="navigateTo('screen-analytics')">View Detailed Reports</button>
+        </div>
+
+        <!-- ⚡ MISSION HUB ⚡ -->
+        <div class="mission-hub glass-panel animate-in">
+          <div class="mission-header">
+            <div class="title-wrap">
+              <h2 class="neon-text glow-blue"><i class="ph-bold ph-lightning"></i> Daily Missions</h2>
+              <div class="mission-meta">
+                <span class="mission-timer" id="mission-timer">RESETS IN: 14H 20M</span>
+                <div class="streak-mini glass-panel">
+                  <span class="streak-fire">🔥</span> <span id="streak-val-mini">15</span>-Day Streak
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Daily Challenge -->
+          <div class="daily-challenge-panel glass-panel" style="margin-bottom: 1.5rem; padding: 1.5rem;">
+            <div class="dc-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <div style="display: flex; align-items: center; gap: 0.75rem;">
+                <i class="ph-fill ph-trophy" style="color: var(--neon-orange); font-size: 1.5rem; filter: drop-shadow(0 0 5px var(--neon-orange));"></i>
+                <div>
+                  <h3 style="font-family: var(--font-display); letter-spacing: 2px; color: #fff; margin: 0; font-size: 1.1rem; text-transform: uppercase;">DAILY CHALLENGE</h3>
+                  <div style="font-size: 0.75rem; color: rgba(255,255,255,0.5); font-family: var(--font-ui);">Resets at midnight - 3 attempts left</div>
+                </div>
+              </div>
+              <button class="game-btn btn-hollow" style="padding: 6px 12px; font-size: 0.6rem; display: flex; align-items: center; gap: 4px;">
+                <i class="ph-bold ph-scroll"></i> ARCHIVE
+              </button>
+            </div>
+
+            <div class="dc-card" style="background: rgba(0,0,0,0.4); border: 1px solid rgba(0, 240, 255, 0.15); border-radius: var(--radius-md); padding: 1.5rem; position: relative; margin-bottom: 1rem;">
+              <h4 class="neon-text glow-cyan" style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; font-family: var(--font-mono); font-size: 0.95rem;">
+                <i class="ph-fill ph-lightning" style="color: var(--neon-orange);"></i> Array Mirror
+              </h4>
+              <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); margin-bottom: 1.5rem; line-height: 1.5; font-family: var(--font-ui);">
+                Write mirror(arr) that returns a new array with elements followed by their reverse.
+              </p>
+              <div style="display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.75rem;">
+                <span style="color: var(--neon-cyan);">Reward: +50 XP</span>
+                <span style="color: var(--neon-green);"><i class="ph-fill ph-lightning"></i> Speed Bonus: +25 XP</span>
+              </div>
+            </div>
+
+            <button class="game-btn btn-cyan btn-large" onclick="openDailyChallenge()" style="width: 100%; border-color: var(--neon-cyan); background: transparent; color: var(--neon-cyan); justify-content: center; display: flex; align-items: center; gap: 8px;">
+              <i class="ph-bold ph-swords"></i> ATTEMPT CHALLENGE (3 LEFT)
+            </button>
+          </div>
+          
+          <div class="daily-missions-list">
+            <!-- Quest 1: Lessons -->
+            <div class="mission-card hover-lift ripple" id="mission-lesson" onclick="startMission('lesson')">
+              <div class="mission-icon mission-logo-lesson">
+                <i class="ph-fill ph-book-open"></i>
+              </div>
+              <div class="mission-info-alt">
+                <div class="mission-name">Protocol Study</div>
+                <div class="mission-objective">Study Programming Modules</div>
+                <div class="mission-progress-container">
+                  <div class="mission-progress-bar" id="prog-bar-lesson" style="width: 0%"></div>
+                </div>
+                <div class="mission-footer">
+                  <span class="mission-reward-alt">+50 XP</span>
+                  <span class="mission-pct" id="prog-pct-lesson">0%</span>
+                </div>
+              </div>
+              <div class="mission-actions">
+                <button class="mission-btn btn-start" id="btn-start-lesson">START</button>
+                <button class="mission-btn btn-claim hidden" id="btn-claim-lesson" onclick="claimQuestReward('lesson', 50, event)">CLAIM</button>
+                <div class="mission-complete-check hidden"><i class="ph-bold ph-check-circle"></i></div>
+              </div>
+            </div>
+
+            <!-- Quest 2: Coding -->
+            <div class="mission-card hover-lift ripple" id="mission-write" onclick="startMission('write')">
+              <div class="mission-icon mission-logo-code">
+                <i class="ph-fill ph-code"></i>
+              </div>
+              <div class="mission-info-alt">
+                <div class="mission-name">Digital Notebook</div>
+                <div class="mission-objective">Write Code</div>
+                <div class="mission-progress-container">
+                  <div class="mission-progress-bar" id="prog-bar-write" style="width: 0%"></div>
+                </div>
+                <div class="mission-footer">
+                  <span class="mission-reward-alt">+30 XP</span>
+                  <span class="mission-pct" id="prog-pct-write">0%</span>
+                </div>
+              </div>
+              <div class="mission-actions">
+                <button class="mission-btn btn-start" id="btn-start-write">START</button>
+                <button class="mission-btn btn-claim hidden" id="btn-claim-write" onclick="claimQuestReward('write', 30, event)">CLAIM</button>
+                <div class="mission-complete-check hidden"><i class="ph-bold ph-check-circle"></i></div>
+              </div>
+            </div>
+
+            <!-- Quest 3: Quiz -->
+            <div class="mission-card hover-lift ripple" id="mission-quiz" onclick="startMission('quiz')">
+              <div class="mission-icon mission-logo-logic">
+                <i class="ph-fill ph-lightning"></i>
+              </div>
+              <div class="mission-info-alt">
+                <div class="mission-name">Logic Mastery</div>
+                <div class="mission-objective">Participate in a Quiz</div>
+                <div class="mission-progress-container">
+                  <div class="mission-progress-bar" id="prog-bar-quiz" style="width: 0%"></div>
+                </div>
+                <div class="mission-footer">
+                  <span class="mission-reward-alt">+70 XP</span>
+                  <span class="mission-pct" id="prog-pct-quiz">0%</span>
+                </div>
+              </div>
+              <div class="mission-actions">
+                <button class="mission-btn btn-start" id="btn-start-quiz">START</button>
+                <button class="mission-btn btn-claim hidden" id="btn-claim-quiz" onclick="claimQuestReward('quiz', 70, event)">CLAIM</button>
+                <div class="mission-complete-check hidden"><i class="ph-bold ph-check-circle"></i></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Weekly Milestone -->
+          <div class="weekly-milestone glass-panel">
+            <div class="milestone-info">
+              <h3><i class="ph-bold ph-trophy"></i> Weekly Challenge: Knight Lord</h3>
+              <p>Gain 2,000 XP in 7 days</p>
+              <div class="milestone-progress">
+                <div class="progress-bar-wrap">
+                  <div class="progress-bar-fill" id="weekly-xp-bar" style="width: 35%"></div>
+                </div>
+                <span class="progress-text">700 / 2000 XP</span>
+              </div>
+            </div>
+            <div class="milestone-reward">
+              <div class="reward-icon">🏆</div>
+              <span>EPIC BADGE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCR    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 3: WORLD MAP (PREMIUM DASHBOARD LAYOUT)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-map" class="screen">
+
+      <!-- TOP BAR -->
+      <div class="map-top-bar">
+        <div class="map-top-left">
+          <button class="map-back-btn" onclick="navigateTo('screen-dashboard')">
+            <i class="ph-bold ph-arrow-left"></i>
+            <span>DASHBOARD</span>
+          </button>
+          <div class="map-logo-icon"><i class="ph-bold ph-shield-chevron"></i></div>
+          <div class="map-zone-info">
+            <h2 id="map-zone-title">Beginner Zone</h2>
+            <p>Your coding adventure begins here.</p>
+          </div>
+        </div>
+        <div class="map-streak-banner" id="map-streak-banner">
+          <i class="ph-fill ph-warning"></i> Your streak is at risk! Complete a mission to keep it alive.
+          <button class="streak-close" onclick="this.parentElement.style.display='none'">&times;</button>
+        </div>
+        <div class="map-top-right">
+          <div class="map-stat-box"><span class="stat-label">LEVEL</span><div class="stat-circle" id="map-hud-level">10</div></div>
+          <div class="map-stat-box"><span class="stat-label">XP</span><div class="stat-value"><i class="ph-fill ph-star" style="color:#ffd700;"></i> <span id="map-hud-xp">2,450 / 5,000</span></div></div>
+          <div class="map-stat-box"><span class="stat-label">STREAK</span><div class="stat-value"><i class="ph-fill ph-fire" style="color:var(--neon-orange);"></i> <span id="map-hud-streak">7</span></div></div>
+          <button class="map-menu-btn" onclick="navigateTo('screen-dashboard')"><i class="ph-bold ph-list"></i></button>
+        </div>
+      </div>
+
+      <!-- WORLD TOGGLE -->
+      <div class="map-toggle-row">
+        <button class="map-world-tab active" id="tab-coding-map" onclick="switchWorld('coding')">CODING WORLD</button>
+        <button class="map-world-tab locked" id="tab-design-map" onclick="switchWorld('design')"><i class="ph-fill ph-lock-simple"></i> DESIGN WORLD</button>
+      </div>
+
+      <!-- MAP TITLE -->
+      <h1 class="map-main-title" id="map-title">&#9876; CODE KINGDOM &mdash; WORLD MAP</h1>
+
+      <!-- RIGHT ICONS -->
+      <div class="map-right-icons">
+        <button class="map-icon-btn"><i class="ph-fill ph-speaker-high"></i></button>
+        <button class="map-icon-btn"><i class="ph-fill ph-user"></i></button>
+        <button class="map-icon-btn"><i class="ph-fill ph-gear"></i></button>
+      </div>
+
+      <!-- LEFT SIDEBAR -->
+      <div class="map-sidebar">
+        <div class="map-profile-card">
+          <div class="map-avatar-ring">
+            <img src="assets/characters/nova.png" id="map-sidebar-avatar" class="map-sidebar-img">
+          </div>
+          <div class="map-profile-info">
+            <h3 id="map-sidebar-name">NEURALKNIGHT</h3>
+            <span class="map-rank-title" id="map-sidebar-rank-title">Frontend Apprentice</span>
+            <span class="map-xp-badge"><i class="ph-fill ph-star" style="color:#ffd700;"></i> <span id="map-sidebar-xp">100</span> XP</span>
+          </div>
+        </div>
+
+        <div class="sidebar-section">
+          <h4 class="sidebar-heading">WORLD PROGRESS</h4>
+          <div class="sidebar-progress-ring">
+            <svg viewBox="0 0 36 36" class="circular-chart-map">
+              <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <path class="circle" id="map-progress-circle" stroke-dasharray="25, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+              <text x="18" y="18" class="percentage" id="map-progress-text">25%</text>
+              <text x="18" y="23" class="pct-label">COMPLETE</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="sidebar-zone-list" id="sidebar-zone-list">
+          <div class="zone-row"><span class="zone-dot done"></span><span class="zone-name">Beginner Village</span><span class="zone-pct done">100%</span></div>
+          <div class="zone-row"><span class="zone-dot active"></span><span class="zone-name">Syntax Grove</span><span class="zone-pct active">60%</span></div>
+          <div class="zone-row"><span class="zone-dot locked"></span><span class="zone-name">Logic Plaza</span><span class="zone-pct">0%</span></div>
+          <div class="zone-row"><span class="zone-dot locked"></span><span class="zone-name">Tech City</span><span class="zone-pct">0%</span></div>
+          <div class="zone-row"><span class="zone-dot locked"></span><span class="zone-name">Boss Citadel</span><span class="zone-pct">0%</span></div>
+        </div>
+
+        <button class="sidebar-missions-btn" onclick="navigateTo('screen-dashboard')"><i class="ph-bold ph-chart-bar"></i> VIEW MISSIONS</button>
+      </div>
+
+      <!-- MAIN MAP VIEWPORT -->
+      <div class="map-viewport" id="map-viewport">
+        <div class="map-stage" id="map-stage">
+          
+          <!-- Removed redundant regions for a cleaner journey view -->
+
+          <!-- SVG Paths -->
+          <svg class="map-svg-full" id="map-svg-full">
+            <defs>
+              <filter id="neon-glow-blue" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+              <filter id="neon-glow-pink" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="8" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+            </defs>
+
+            <!-- CODING WORLD PATHS (5 Nodes) -->
+            <!-- Glow Underlays -->
+            <path class="journey-line-glow coding-path" d="M 300 500 Q 800 200 1300 400" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow coding-path" d="M 1300 400 Q 1800 600 2300 350" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow coding-path" d="M 2300 350 Q 2800 100 3300 450" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow coding-path" d="M 3300 450 Q 3800 700 4300 400" fill="none" stroke="rgba(0,240,255,0.2)" stroke-width="32" stroke-linecap="round"/>
+
+            <!-- Actual Dashed Paths -->
+            <path id="path-coding-1" class="journey-line unlocked" d="M 300 500 Q 800 200 1300 400" />
+            <path id="path-coding-2" class="journey-line" d="M 1300 400 Q 1800 600 2300 350" />
+            <path id="path-coding-3" class="journey-line" d="M 2300 350 Q 2800 100 3300 450" />
+            <path id="path-coding-4" class="journey-line" d="M 3300 450 Q 3800 700 4300 400" />
+
+            <!-- DESIGN WORLD PATHS (4 Nodes) -->
+            <!-- Design Paths (Connect 6 nodes) -->
+            <!-- Design World Glow Underlays -->
+            <path class="journey-line-glow design-path hidden-path" d="M 200 400 Q 500 200 800 500" fill="none" stroke="rgba(255,0,127,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow design-path hidden-path" d="M 800 500 Q 1100 700 1400 350" fill="none" stroke="rgba(255,0,127,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow design-path hidden-path" d="M 1400 350 Q 1700 150 2000 450" fill="none" stroke="rgba(255,0,127,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow design-path hidden-path" d="M 2000 450 Q 2300 750 2600 550" fill="none" stroke="rgba(255,0,127,0.2)" stroke-width="32" stroke-linecap="round"/>
+            <path class="journey-line-glow design-path hidden-path" d="M 2600 550 Q 3300 250 4000 450" fill="none" stroke="rgba(255,0,127,0.2)" stroke-width="32" stroke-linecap="round"/>
+
+            <path id="path-design-1" class="journey-line design-path hidden-path" d="M 200 400 Q 500 200 800 500" />
+            <path id="path-design-2" class="journey-line design-path hidden-path" d="M 800 500 Q 1100 700 1400 350" />
+            <path id="path-design-3" class="journey-line design-path hidden-path" d="M 1400 350 Q 1700 150 2000 450" />
+            <path id="path-design-4" class="journey-line design-path hidden-path" d="M 2000 450 Q 2300 750 2600 550" />
+            <path id="path-design-5" class="journey-line design-path hidden-path" d="M 2600 550 Q 3300 250 4000 450" />
+          </svg>
+
+          <!-- SHARED AVATAR -->
+          <div class="map-avatar" id="map-avatar" style="left: 300px; top: 500px;">
+            <div class="map-avatar-bubble">
+              <img src="assets/characters/nova.png" id="map-avatar-img" class="avatar-img-inner">
+            </div>
+            <div class="map-avatar-ping"></div>
+            <div class="map-avatar-dialogue" id="map-avatar-dialogue">Choose your next mission ⚡ </div>
+          </div>
+
+          <!-- CODING NODES (5) -->
+          <div id="coding-world-nodes" class="world-nodes">
+            <!-- 1. Beginner Village -->
+            <div class="map-node node-beginner unlocked" id="node-beginner" style="left: 300px; top: 500px;" onclick="handleNodeClick('beginner', 'Variable Village')">
+              <div class="node-orb">1</div>
+              <div class="node-card">
+                <div class="node-card-title">VARIABLE VILLAGE</div>
+                <div class="node-card-desc">The Foundation of JS</div>
+                <div class="node-card-status status-done"><i class="ph-fill ph-seal-check"></i> 100%</div>
+              </div>
+            </div>
+
+            <!-- 2. Syntax Grove -->
+            <div class="map-node node-forest locked" id="node-forest" style="left: 1300px; top: 400px;" onclick="handleNodeClick('forest', 'Syntax Grove')">
+              <div class="node-orb">2</div>
+              <div class="node-card">
+                <div class="node-card-title">SYNTAX GROVE</div>
+                <div class="node-card-desc">Reusable Code Blocks</div>
+                <div class="node-card-status status-locked"><i class="ph-fill ph-lock-simple"></i> Locked</div>
+                <div class="node-progress-mini"><div class="node-progress-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <!-- 3. Logic Plaza -->
+            <div class="map-node node-city locked" id="node-city" style="left: 2300px; top: 350px;" onclick="handleNodeClick('city', 'Logic Plaza')">
+              <div class="node-orb">3</div>
+              <div class="node-card">
+                <div class="node-card-title">LOGIC PLAZA</div>
+                <div class="node-card-desc">Data Structures Mastery</div>
+                <div class="node-card-status status-locked"><i class="ph-fill ph-lock-simple"></i> Locked</div>
+              </div>
+            </div>
+
+            <!-- 4. Tech City -->
+            <div class="map-node node-tech locked" id="node-tech" style="left: 3300px; top: 450px;" onclick="handleNodeClick('tech', 'Tech City')">
+              <div class="node-orb">4</div>
+              <div class="node-card">
+                <div class="node-card-title">TECH CITY</div>
+                <div class="node-card-desc">Modern Storage Protocols</div>
+                <div class="node-card-status status-locked"><i class="ph-fill ph-lock-simple"></i> Locked</div>
+              </div>
+            </div>
+
+            <!-- 5. Boss Citadel -->
+            <div class="map-node node-arena locked boss-node" id="node-arena" style="left: 4300px; top: 400px;" onclick="handleNodeClick('arena', 'Boss Citadel')">
+              <div class="node-orb">5</div>
+              <div class="node-card">
+                <div class="node-card-title">BOSS CITADEL</div>
+                <div class="node-card-desc">Final Boss: Time & Requests</div>
+                <div class="node-card-status status-locked"><i class="ph-fill ph-lock-simple"></i> Locked</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DESIGN NODES (6) -->
+          <div id="design-world-nodes" class="world-nodes hidden">
+            <!-- 1. Pixel Village -->
+            <!-- 1. Pixel Perfection (Design) -->
+            <div class="map-node node-pixel unlocked" id="node-pixel" style="left: 200px; top: 400px;" onclick="handleNodeClick('pixel', 'Logo Design & Branding', 'design')">
+              <div class="node-orb">1</div>
+              <div class="node-card">
+                <div class="node-card-title">LOGO DESIGN</div>
+                <div class="node-card-desc">Branding & Visual Identity</div>
+                <div class="node-card-status">AVAILABLE</div>
+                <div class="node-progress-mini"><div class="node-progress-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <!-- 2. UX Labyrinth (Design) -->
+            <div class="map-node node-labyrinth locked" id="node-labyrinth" style="left: 800px; top: 500px;" onclick="handleNodeClick('labyrinth', 'Wireframing & User Flows', 'design')">
+              <div class="node-orb">2</div>
+              <div class="node-card">
+                <div class="node-card-title">UX LABYRINTH</div>
+                <div class="node-card-desc">Wireframing & User Flow</div>
+                <div class="node-card-status status-locked">LOCKED</div>
+                <div class="node-progress-mini"><div class="node-progress-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <!-- 3. Color Peaks (Design) -->
+            <div class="map-node node-peaks locked" id="node-peaks" style="left: 1400px; top: 350px;" onclick="handleNodeClick('peaks', 'UI/UX Principles', 'design')">
+              <div class="node-orb">3</div>
+              <div class="node-card">
+                <div class="node-card-title">UI/UX PRINCIPLES</div>
+                <div class="node-card-desc">Color Theory & Typography</div>
+                <div class="node-card-status status-locked">LOCKED</div>
+                <div class="node-progress-mini"><div class="node-progress-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <!-- 4. Research Bay (Design) -->
+            <div class="map-node node-research locked" id="node-research" style="left: 2000px; top: 450px;" onclick="handleNodeClick('research', 'User Research & Personas', 'design')">
+              <div class="node-orb">4</div>
+              <div class="node-card">
+                <div class="node-card-title">USER RESEARCH</div>
+                <div class="node-card-desc">Personas & Empathy Protocol</div>
+                <div class="node-card-status status-locked">LOCKED</div>
+                <div class="node-progress-mini"><div class="node-progress-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <!-- 5. Tech City (Design) -->
+            <div class="map-node node-dw-tech locked" id="node-dw-tech" style="left: 2600px; top: 550px;" onclick="handleNodeClick('tech', 'Web & App Design', 'design')">
+              <div class="node-orb">5</div>
+              <div class="node-card">
+                <div class="node-card-title">WEB & APP DESIGN</div>
+                <div class="node-card-desc">Responsive Layouts & Systems</div>
+                <div class="node-card-status status-locked">LOCKED</div>
+                <div class="node-progress-mini"><div class="node-progress-fill" style="width: 0%"></div></div>
+              </div>
+            </div>
+
+            <!-- 6. Final Boss Arena -->
+            <div class="map-node node-arena locked boss-node" id="node-dw-arena" style="left: 4000px; top: 450px;" onclick="handleNodeClick('arena', 'Prototyping & Posters', 'design')">
+              <div class="node-orb"><i class="ph-fill ph-lock-simple"></i></div>
+              <div class="node-card">
+                <div class="node-card-title">FINAL PROTOTYPE</div>
+                <div class="node-card-desc">Interactive Systems & Posters</div>
+                <div class="node-card-status status-locked">LOCKED</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOCIAL LINKS -->
+      <div class="map-social-links">
+        <a class="social-icon" href="#"><i class="ph-fill ph-discord-logo"></i></a>
+        <a class="social-icon" href="#"><i class="ph-fill ph-twitter-logo"></i></a>
+        <a class="social-icon" href="#"><i class="ph-fill ph-github-logo"></i></a>
+      </div>
+
+      <!-- BOTTOM MISSION PANEL -->
+      <div class="map-bottom-panel">
+        <div class="next-mission-icon"><i class="ph-bold ph-code"></i></div>
+        <div class="next-mission-details">
+          <h4 class="mission-label">NEXT MISSION</h4>
+          <h2 id="map-mission-title">Variables Quest</h2>
+          <p id="map-mission-desc">Learn how to store and use data like a true developer!</p>
+        </div>
+        <div class="next-mission-reward">
+          <span class="reward-label">REWARD</span>
+          <span class="reward-xp"><i class="ph-fill ph-star" style="color:#ffd700;"></i> 50 XP</span>
+        </div>
+        <button class="mission-start-btn" onclick="handleNodeClick('beginner', 'Beginner Village')">START MISSION</button>
+      </div>
+
+      <!-- AI ASSISTANT -->
+      <div class="map-ai-widget">
+        <div class="ai-avatar-wrap">
+          <img src="assets/characters/nova.png" class="ai-avatar-img" alt="AI">
+        </div>
+        <div class="ai-chat-bubble" id="ai-chat-bubble">Ooh the map! Every zone has its own vibe. I love Beginner Forest!</div>
+        <div class="ai-input-wrap">
+          <input type="text" class="ai-input" placeholder="Ask AI Assistant..." onkeypress="handleGuideAI(event)">
+          <button class="ai-send-btn"><i class="ph-fill ph-paper-plane-tilt"></i></button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 4: LEVEL ENTRY
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-level-entry" class="screen">
+      <div class="level-intro-card glass-panel text-center">
+        <h1 class="neon-text" id="level-title">Beginner Forest</h1>
+        <p class="story-text" id="level-desc">Welcome to the roots of logic. Ancient variable scrolls lie hidden in the undergrowth. Complete the trials to earn your first Syntax Blade.</p>
+        <div class="action-buttons">
+          <button class="game-btn btn-cyan btn-large" id="btn-start-training" onclick="navigateTo('screen-training')">⚔️ Start Training</button>
+          <button class="game-btn btn-purple btn-large" id="btn-start-quiz" onclick="navigateTo('screen-quiz')">🎯 Quiz Challenge</button>
+          <button class="game-btn btn-hollow" id="btn-entry-back" onclick="navigateTo('screen-map')">◀ Back to Map</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 5: TRAINING CHAMBER
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-training" class="screen">
+      <div class="training-top-header" style="text-align: center; padding: 2rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;">
+        <h1 class="neon-text blue-neon" id="training-main-header" style="font-size: 1.2rem; letter-spacing: 5px; font-family: var(--font-display);">CODE TRAINING CHAMBER</h1>
+      </div>
+      <h1 class="screen-title neon-text" id="lesson-title">⚔️ Training Chamber</h1>
+
+      <!-- Module Tabs -->
+      <div class="module-tabs" id="module-tabs">
+        <button class="mod-tab active" id="mod-tab-0" onclick="selectModule(0)">📦 Variables</button>
+        <button class="mod-tab" id="mod-tab-1" onclick="selectModule(1)">⚙️ Functions</button>
+        <button class="mod-tab" id="mod-tab-2" onclick="selectModule(2)">🔄 Loops</button>
+        <button class="mod-tab" id="mod-tab-3" onclick="selectModule(3)">🔀 Conditionals</button>
+      </div>
+
+      <div class="training-container">
+        <!-- Video Side -->
+        <div class="video-wrapper glass-panel" style="padding:0; border-radius: var(--radius-lg); overflow:hidden; position:relative;">
+          <div class="scan-line"></div>
+
+          <!-- Placeholder -->
+          <div class="video-placeholder flex-center" id="video-placeholder">
+            <div class="vid-module-badge" id="vid-module-badge">MODULE 1</div>
+            <div class="vid-module-title" id="vid-module-title">Variables &amp; Scope</div>
+            <div class="vid-module-desc" id="vid-module-desc">Store and label data in memory — the foundation of all programs.</div>
+            <div class="play-icon" id="btn-play-video" onclick="loadVideo()">▶</div>
+            <p style="color:rgba(255,255,255,0.3); font-size:0.65rem; margin-top:0.75rem; letter-spacing:2px;">CLICK TO LAUNCH MODULE</p>
+          </div>
+
+          <!-- Video iframe -->
+          <iframe id="training-iframe" width="100%" height="100%"
+            src="about:blank"
+            title="Training Module"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            style="display:none;">
+          </iframe>
+
+          <!-- Close video overlay -->
+          <button class="vid-close-btn hidden" id="vid-close-btn" onclick="closeVideo()">✕ Back</button>
+        </div>
+
+        <!-- Concept Cards Sidebar -->
+        <div class="concept-sidebar">
+          <h3 id="concept-sidebar-header" style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:3px; color:rgba(255,255,255,0.4); margin-bottom:1rem;">CONCEPTS</h3>
+
+          <div class="concept-card active-concept" id="cc-0" onclick="selectModule(0)">
+            <h3>📦 Variables</h3>
+            <p>Store and label data in memory. The foundation of all programs.</p>
+          </div>
+          <div class="concept-card" id="cc-1" onclick="selectModule(1)">
+            <h3>⚙️ Functions</h3>
+            <p>Reusable blocks of code that perform specific tasks on demand.</p>
+          </div>
+          <div class="concept-card" id="cc-2" onclick="selectModule(2)">
+            <h3>🔄 Loops</h3>
+            <p>Repeat operations automatically without duplicating code.</p>
+          </div>
+          <div class="concept-card" id="cc-3" onclick="selectModule(3)">
+            <h3>🔀 Conditionals</h3>
+            <p>Make decisions in your code with if/else logic branches.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:1rem; margin-top:1.5rem; align-items:center; flex-wrap:wrap; justify-content:center;">
+        <button class="game-btn btn-pink btn-large" id="btn-go-challenge" onclick="navigateToChallenge()">⚔️ Enter Final Trial</button>
+        <button class="game-btn btn-cyan btn-large" id="btn-go-quiz-from-training" onclick="navigateTo('screen-quiz')">🎯 Quiz Battle</button>
+      </div>
+      <button class="game-btn btn-hollow corner-close" id="btn-training-back" onclick="navigateTo('screen-level-entry')">◀ Back</button>
+    </section>
+
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 6: NPC QUIZ
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-quiz" class="screen">
+
+      <div class="quiz-layout">
+        <!-- NPC Avatar -->
+        <div class="npc-stage">
+          <img src="../codeing world/Bug monster in Bug Mountain level.jpeg" alt="Quiz NPC" class="npc-avatar" id="quiz-npc-img" loading="lazy">
+          <div class="hp-label">❤️ PLAYER HP</div>
+          <div class="hp-bar-outer" style="width:160px;">
+            <div class="hp-bar-inner" id="player-hp-bar"></div>
+          </div>
+        </div>
+
+        <!-- Quiz Panel -->
+        <div class="quiz-panel">
+          <!-- Dialogue -->
+          <div class="dialogue-box glass-panel">
+            <p class="npc-text" id="quiz-question">"Halt, intruder! To pass through Bug Mountain, answer this correctly⚡ What keyword declares a variable in JavaScript that CANNOT be reassigned?"</p>
+          </div>
+
+          <!-- Options -->
+          <div class="quiz-options" id="quiz-options">
+            <button class="game-btn btn-hollow quiz-btn" id="quiz-opt-a" onclick="answerQuiz(this, false)">A) var</button>
+            <button class="game-btn btn-hollow quiz-btn" id="quiz-opt-b" onclick="answerQuiz(this, true)">B) const</button>
+            <button class="game-btn btn-hollow quiz-btn" id="quiz-opt-c" onclick="answerQuiz(this, false)">C) let</button>
+            <button class="game-btn btn-hollow quiz-btn" id="quiz-opt-d" onclick="answerQuiz(this, false)">D) static</button>
+          </div>
+
+          <!-- Input Type Question UI -->
+          <div id="quiz-input-container" class="glass-panel" style="display:none; margin-top:1rem; padding:1.5rem; border-color:var(--neon-blue);">
+            <div style="font-family:var(--font-mono); font-size:0.65rem; color:var(--neon-blue); margin-bottom:1rem; letter-spacing:2px;">ENTER PROTOCOL VALUE</div>
+            <input type="text" id="quiz-text-input" class="name-edit-field" placeholder="Type answer..." style="width:100%; height:50px; font-size:1.1rem; text-align:center; border-radius:10px; background:rgba(0,0,0,0.4);" onkeypress="if(event.key === 'Enter') submitQuizInput()">
+            <button class="game-btn btn-blue" style="width:100%; margin-top:1rem;" onclick="submitQuizInput()">SUBMIT ANSWER</button>
+          </div>
+
+          <button class="game-btn btn-cyan" id="btn-next-quiz" onclick="nextQuestion()" style="display:none; margin-top:1rem;">Next Question ➡</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" id="btn-quiz-flee" onclick="navigateTo('screen-level-entry')">◀ Flee</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 7: CODING CHALLENGE
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-coding" class="screen">
+
+      <div class="ide-layout">
+        <!-- Editor Side -->
+        <div class="editor-side">
+          <div class="editor-titlebar">
+            <div class="traffic-lights">
+              <span class="tl red"></span>
+              <span class="tl yellow"></span>
+              <span class="tl green"></span>
+            </div>
+            <span class="file-tab">battle.js</span>
+          </div>
+          <textarea class="code-area" id="code-editor" spellcheck="false">// MISSION: Fix the bug and return the correct damage value
+// The hero should deal 50 base damage + 10 bonus per level
+
+function calculateDamage(level) {
+  let baseDamage = 50;
+  let bonus = level * 10;
+  
+  // TODO: Return the total damage
+  
+}
+
+// Test: calculateDamage(3) should return 80
+console.log(calculateDamage(3));</textarea>
+        </div>
+
+        <!-- Console Side -->
+        <div class="console-side">
+          <div class="console-header">🖥️ SYSTEM OUTPUT</div>
+          <div class="console-output" id="console-output">
+            <div class="console-line" style="color:rgba(255,255,255,0.3)">// Run your script to see output...</div>
+          </div>
+          <div class="ide-buttons">
+            <button class="game-btn btn-green" id="btn-run-code" onclick="runCode()">⚡ Run</button>
+            <button class="game-btn btn-cyan" id="btn-submit-code" onclick="submitCode()">✅ Submit</button>
+            <button class="game-btn btn-hollow" id="btn-code-next" onclick="navigateTo('screen-design')" style="display:none;">Next ➡</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" id="btn-coding-back" onclick="navigateTo('screen-dashboard')" style="top: auto; bottom: 5rem; left: 50%; transform: translateX(-50%);">◀ Retreat</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 8: DESIGN CHALLENGE
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-design" class="screen">
+      <h1 class="screen-title neon-text pink-neon">UI Forge ⚡ Design Challenge</h1>
+
+      <div class="design-layout">
+        <!-- Toolbox -->
+        <div class="toolbox-panel glass-panel">
+          <h3>🧩 COMPONENTS</h3>
+          <div class="tool-item" draggable="true" data-type="btn" id="tool-btn">Neon Button</div>
+          <div class="tool-item" draggable="true" data-type="card" id="tool-card">Glass Card</div>
+          <div class="tool-item" draggable="true" data-type="input" id="tool-input">Input Field</div>
+          <div class="tool-item" draggable="true" data-type="badge" id="tool-badge">XP Badge</div>
+          <div class="tool-item" draggable="true" data-type="avatar" id="tool-avatar">Avatar</div>
+        </div>
+
+        <!-- Canvas -->
+        <div class="design-canvas" id="design-canvas">
+          <div class="grid-overlay"></div>
+          <div class="canvas-hint" id="canvas-hint">
+            <div style="font-size:2rem; margin-bottom:0.5rem;"><⚡</div>
+            Drag components here<br>to build the UI
+          </div>
+        </div>
+
+        <!-- Design Feedback -->
+        <div class="feedback-panel glass-panel">
+          <div class="feedback-tip" id="feedback-tip">
+            "Start with layout structure ⚡ place your card first, then add interactive elements!"
+          </div>
+          <!-- Score -->
+          <div class="score-display">
+            <div class="score-row">
+              <span>Layout</span>
+              <span id="score-layout">0%</span>
+            </div>
+            <div class="score-bar-outer"><div class="score-bar-inner" id="sbar-layout" style="width:0%"></div></div>
+            <div class="score-row" style="margin-top:0.5rem">
+              <span>UX</span>
+              <span id="score-ux">0%</span>
+            </div>
+            <div class="score-bar-outer"><div class="score-bar-inner" id="sbar-ux" style="width:0%; background:var(--neon-cyan)"></div></div>
+            <div class="score-row" style="margin-top:0.5rem">
+              <span>Creativity</span>
+              <span id="score-creativity">0%</span>
+            </div>
+            <div class="score-bar-outer"><div class="score-bar-inner" id="sbar-creativity" style="width:0%; background:var(--neon-purple)"></div></div>
+          </div>
+          <button class="game-btn btn-pink" id="btn-design-submit" onclick="submitDesign()">Submit Design</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" id="btn-design-back" onclick="navigateTo('screen-coding')">◀ Back</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: STUDY MATERIALS
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-study" class="screen">
+      <h1 class="screen-title neon-text glow-blue">📚 Library of Syntax - Study Materials</h1>
+      
+      <div class="study-layout" style="display: flex; gap: 2rem; max-width: 1200px; margin: 0 auto; margin-top: 2rem; height: 70vh;">
+        <!-- Language Selector -->
+        <div class="language-sidebar glass-panel" style="flex: 1; display: flex; flex-direction: column; gap: 1rem; overflow-y: auto;">
+          <h3 style="color:var(--neon-blue); border-bottom: 1px solid rgba(0, 240, 255, 0.3); padding-bottom: 0.5rem;">Select Module</h3>
+          
+          <button class="game-btn btn-blue" onclick="loadStudyMaterial('python')"><i class="ph-fill ph-file-py"></i> Python Fundamentals</button>
+          <button class="game-btn btn-green" onclick="loadStudyMaterial('javascript')"><i class="ph-fill ph-lightning"></i> JavaScript Essentials</button>
+          <button class="game-btn btn-purple" onclick="loadStudyMaterial('html')"><i class="ph-fill ph-file-html"></i> HTML/CSS Basics</button>
+          <button class="game-btn btn-red" onclick="loadStudyMaterial('java')"><i class="ph-fill ph-coffee"></i> Java Core</button>
+        </div>
+
+        <!-- Study Content Display -->
+        <div class="study-content-panel glass-panel" style="flex: 2; display: flex; flex-direction: column; overflow-y: auto;">
+          <div id="study-material-content">
+            <div style="text-align: center; margin-top: 20%; color: rgba(255,255,255,0.5);">
+              <i class="ph-bold ph-book-open" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+              <h2>Awaiting Database Link...</h2>
+              <p>Select a programming language module from the left to begin your study session.</p>
+            </div>
+          </div>
+          <button class="game-btn btn-pink" style="margin-top: auto; align-self: flex-end;" id="btn-complete-study" onclick="completeTask('lesson', 1); navigateTo('screen-dashboard'); showGuideMessage('Study protocol completed! +50 XP.')">✅ Mark as Studied (+50 XP)</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ Return to HQ</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: DIGITAL NOTEBOOK
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 9: BOSS FIGHT
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-boss" class="screen">
+
+      <!-- Boss HUD -->
+      <div class="boss-hud">
+        <div class="boss-timer" id="boss-timer-display">00:30</div>
+        <div class="boss-health-bar">
+          <div class="boss-name-label">SYNTAX TERROR v2.0</div>
+          <div class="boss-hp-outer">
+            <div class="boss-hp-inner" id="boss-hp-bar"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arena -->
+      <div class="boss-arena">
+        <img src="../codeing world/final Boss Final Arena level.png" alt="Boss" class="boss-sprite" id="boss-sprite" loading="lazy">
+
+        <div class="fight-panel glass-panel">
+          <h3>QUICK FIXES ⚡ ATTACK!</h3>
+          <div class="fight-actions">
+            <button class="game-btn btn-red btn-large" id="boss-attack-1" onclick="bossAttack(this, 30)">⚡ Patch Memory Leak</button>
+            <button class="game-btn btn-red btn-large" id="boss-attack-2" onclick="bossAttack(this, 25)">= Refactor Loop</button>
+            <button class="game-btn btn-red btn-large" id="boss-attack-3" onclick="bossAttack(this, 45)"><⚡ Close Open Tag</button>
+            <button class="game-btn btn-red btn-large" id="boss-attack-4" onclick="bossAttack(this, 20)">= Catch Exception</button>
+          </div>
+          <div style="color:rgba(255,255,255,0.4); font-size:0.7rem; letter-spacing:1px; margin-top:1rem;" id="boss-feedback"></div>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" id="btn-boss-flee" onclick="navigateTo('screen-map')">◀ Escape</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 10: LEADERBOARD & PROFILE
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-leaderboard" class="screen">
+      <h1 class="screen-title neon-text pink-neon"><⚡ Hall of Knights</h1>
+
+      <div class="leaderboard-layout">
+
+        <!-- Skill Tree -->
+        <div class="skill-tree-panel glass-panel">
+          <h2 style="color:var(--neon-blue);">SKILL TREE</h2>
+          <div id="skill-tree-container">
+            <div class="skill-node unlocked">HTML Mastery</div>
+            <div class="skill-connector"></div>
+            <div class="skill-node unlocked">CSS Wizardry</div>
+            <div class="skill-connector"></div>
+            <div class="skill-node unlocked">JS Basics</div>
+            <div class="skill-connector locked-line"></div>
+            <div class="skill-node locked">🔒 JS Advanced</div>
+            <div class="skill-connector locked-line"></div>
+            <div class="skill-node locked">🧩 Algorithms</div>
+            <div class="skill-connector locked-line"></div>
+            <div class="skill-node locked">👑 FullStack Lord</div>
+          </div>
+        </div>
+
+        <!-- Ranking List -->
+        <div class="ranking-panel">
+          <div class="rank-card gold">
+            <span class="rank-position">#1</span>
+            <div class="rank-avatar">🧙</div>
+            <div class="rank-info">
+              <div class="rank-player-name">ByteKnight</div>
+              <div class="rank-xp">9,999 XP ⚡ Level 50</div>
+            </div>
+            <span class="rank-badge">👑</span>
+          </div>
+          <div class="rank-card silver">
+            <span class="rank-position">#2</span>
+            <div class="rank-avatar">🤖</div>
+            <div class="rank-info">
+              <div class="rank-player-name">NullSec</div>
+              <div class="rank-xp">8,540 XP ⚡ Level 42</div>
+            </div>
+            <span class="rank-badge">>🥈</span>
+          </div>
+          <div class="rank-card bronze">
+            <span class="rank-position">#3</span>
+            <div class="rank-avatar">🤖</div>
+            <div class="rank-info">
+              <div class="rank-player-name">Glitch_Coder</div>
+              <div class="rank-xp">7,200 XP ⚡ Level 36</div>
+            </div>
+            <span class="rank-badge">>🥉</span>
+          </div>
+          <div class="rank-card">
+            <span class="rank-position" style="color:rgba(255,255,255,0.4)">#4</span>
+            <div class="rank-avatar" style="background: linear-gradient(135deg, #555, #888);"><⚡</div>
+            <div class="rank-info">
+              <div class="rank-player-name">DevLancer</div>
+              <div class="rank-xp">5,800 XP ⚡ Level 29</div>
+            </div>
+            <span class="rank-badge">⭐</span>
+          </div>
+          <div class="rank-card">
+            <span class="rank-position" style="color:rgba(255,255,255,0.4)">#5</span>
+            <div class="rank-avatar" style="background: linear-gradient(135deg, #555, #888);">>▶</div>
+            <div class="rank-info">
+              <div class="rank-player-name">SyntaxWitch</div>
+              <div class="rank-xp">4,100 XP ⚡ Level 20</div>
+            </div>
+            <span class="rank-badge">🌟</span>
+          </div>
+          <div class="rank-card my-rank">
+            <span class="rank-position">#84</span>
+            <div class="rank-avatar" style="background:linear-gradient(135deg,var(--neon-blue),var(--neon-purple));">>▶</div>
+            <div class="rank-info">
+              <div class="rank-player-name" id="leaderboard-playername">SkillQuest_01</div>
+              <div class="rank-xp">700 XP ⚡ Level 10</div>
+            </div>
+            <span class="rank-badge">⚡</span>
+          </div>
+        </div>
+
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" id="btn-lb-back" onclick="navigateTo('screen-dashboard')">◀ HQ</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 11: PLAYER PROFILE
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-profile" class="screen">
+      <div class="profile-header-wrap">
+        <h1 class="neon-text profile-title-main">
+          <i class="ph-bold ph-swords"></i>
+          KNIGHT PROTOCOL
+          <i class="ph-bold ph-swords" style="transform: scaleX(-1);"></i>
+        </h1>
+      </div>
+      
+      <div class="profile-layout-grid">
+        <!-- Sidebar -->
+        <aside class="profile-side glass-panel">
+          <div class="profile-avatar-block">
+            <div class="streak-risk-chip" id="streak-danger-indicator">STREAK AT RISK!</div>
+            <div class="avatar-hex">
+              <img src="" alt="Avatar" id="profile-avatar" class="avatar-hex-img">
+            </div>
+          </div>
+          
+          <div class="profile-name-edit-wrap">
+            <input type="text" id="profile-name-input" class="name-edit-field" maxlength="15" spellcheck="false" value="SkillQuest_01">
+            <button class="save-btn-mini" onclick="saveName()">SR</button>
+          </div>
+          
+          <div class="rank-lvl-block">
+            <div class="p-rank-text" id="player-rank-name">FRONTEND APPRENTICE</div>
+            <div class="p-lvl-text">LVL <span id="profile-lvl">10</span></div>
+          </div>
+
+          <div class="p-summary-stats">
+            <div class="p-stat-box">
+              <div class="p-stat-val" id="profile-xp">700</div>
+              <div class="p-stat-lbl">EXPERIENCE</div>
+            </div>
+            <div class="p-stat-box">
+              <div class="p-stat-val" id="profile-streak">2</div>
+              <div class="p-stat-lbl">DAY STREAK</div>
+            </div>
+          </div>
+
+          <div class="freeze-hub">
+            <div class="freeze-title">STREAK FREEZE BLOCKS</div>
+            <div class="freeze-slots">
+              <div class="freeze-node active"><i class="ph-fill ph-snowflake"></i></div>
+              <div class="freeze-node active"><i class="ph-fill ph-snowflake"></i></div>
+              <div class="freeze-node locked"><i class="ph-bold ph-lock"></i></div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="profile-content">
+          <!-- Heatmap -->
+          <section class="p-content-panel glass-panel">
+            <h3 class="panel-title"><i class="ph-fill ph-flame"></i> NEURAL ACTIVITY HEATMAP</h3>
+            <p class="panel-desc">Last 90 days of logical contributions</p>
+            <div id="activity-heatmap" class="heatmap-new-grid"></div>
+          </section>
+
+          <!-- Badges -->
+          <section class="p-content-panel glass-panel">
+            <h3 class="panel-title"><i class="ph-fill ph-trophy"></i> ELITE BADGES</h3>
+            <div class="badges-gallery-new" id="profile-badges-container">
+               <span class="empty-msg">Complete missions to earn badges!</span>
+            </div>
+          </section>
+
+          <!-- Skills -->
+          <section class="p-content-panel glass-panel">
+            <h3 class="panel-title"><i class="ph-bold ph-x"></i> SKILL PROTOCOLS</h3>
+            <div class="skill-list-new" id="profile-skill-meters"></div>
+          </section>
+        </main>
+      </div>
+
+      <div class="profile-back-footer">
+        <button class="hq-btn" onclick="navigateTo('screen-dashboard')">
+          <i class="ph-bold ph-caret-left"></i> HQ
+        </button>
+      </div>
+    </section>
+
+
+
+
+    <!-- ⚡ DW SCREEN 1: Design Level Entry ⚡ -->
+    <section id="screen-dw-entry" class="screen">
+      <div class="dw-entry-card glass-panel">
+        <div class="dw-zone-badge" id="dw-zone-badge">🎨 Pixel Village</div>
+        <h1 class="neon-text pink-neon" id="dw-level-title">Pixel Village</h1>
+        <p class="story-text" id="dw-level-desc">Welcome to the birthplace of all interfaces. Here, every pixel tells a story. Master the fundamentals of visual design and earn your first Color Shard.</p>
+
+
+
+        <div class="action-buttons">
+          <button class="game-btn btn-pink btn-large" id="btn-dw-training" onclick="navigateTo('screen-dw-training')">🎨 Start Training</button>
+          <button class="game-btn btn-purple btn-large" id="btn-dw-challenge" onclick="navigateTo('screen-dw-quiz')">🧩 Design Quiz</button>
+          <button class="game-btn btn-hollow" onclick="navigateTo('screen-map')">◀ Back to Map</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ⚡ DW SCREEN 2: Design Training Chamber ⚡ -->
+    <section id="screen-dw-training" class="screen">
+      <h1 class="screen-title neon-text pink-neon">🎨 Design Training Chamber</h1>
+
+      <div class="training-container">
+        <!-- Video Side -->
+        <div class="video-wrapper glass-panel" style="padding:0; border-radius:var(--radius-lg); overflow:hidden;">
+          <div class="scan-line" style="background:linear-gradient(90deg,transparent,var(--neon-pink),transparent)"></div>
+          <div class="video-placeholder flex-center" id="dw-video-placeholder">
+            <div class="play-icon" style="border-color:var(--neon-pink); box-shadow:0 0 20px var(--neon-pink);" onclick="loadDesignVideo()">▶</div>
+            <p style="color:rgba(255,255,255,0.5); font-size:0.8rem; margin-top:1rem;" id="dw-video-label">Module: Visual Hierarchy is your most powerful fundamental skill.</p>
+          </div>
+          <iframe id="dw-training-iframe" width="100%" height="100%" src="about:blank" title="Design Training" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope" allowfullscreen style="display:none; border-radius:var(--radius-lg) 0 0 var(--radius-lg);"></iframe>
+        </div>
+
+        <!-- Concept Sidebar -->
+        <div class="concept-sidebar">
+          <h3 style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:3px; color:rgba(255,80,180,0.7); margin:1rem 0 0.75rem;">DESIGN CONCEPTS</h3>
+          <div class="concept-card design-concept">
+            <h3 style="color:var(--neon-pink);">Visual Hierarchy</h3>
+            <p>Guide the user's eye through size, weight, and contrast.</p>
+          </div>
+          <div class="concept-card design-concept">
+            <h3 style="color:var(--neon-pink);">Color Theory</h3>
+            <p>Harmonious palettes evoke emotion and reinforce brand.</p>
+          </div>
+          <div class="concept-card design-concept">
+            <h3 style="color:var(--neon-pink);">White Space</h3>
+            <p>Empty space is a design element ⚡ use it deliberately.</p>
+          </div>
+          <div class="concept-card design-concept">
+            <h3 style="color:var(--neon-pink);">Typography</h3>
+            <p>Font size, weight, and line-height define readability.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="game-btn btn-pink btn-large" style="margin-top:1.5rem;" onclick="navigateTo('screen-dw-challenge')">🎨 Enter Design Challenge</button>
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dw-entry')">◀ Back</button>
+    </section>
+
+    <!-- ⚡ DW SCREEN 3: Design Quiz (NPC) ⚡ -->
+    <section id="screen-dw-quiz" class="screen">
+
+      <div class="quiz-layout">
+        <!-- NPC Stage -->
+        <div class="npc-stage">
+          <img src="../design world/UX Research Bay level.jpeg" alt="NPC" class="npc-avatar" id="dw-quiz-npc-img" style="border-color:var(--neon-pink); box-shadow:0 0 30px rgba(255,0,127,0.5);">
+          <div class="hp-label" style="color:var(--neon-pink);">❤️ PLAYER HP</div>
+          <div class="hp-bar-outer" style="width:160px;">
+            <div class="hp-bar-inner" id="dw-player-hp-bar" style="background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple));"></div>
+          </div>
+        </div>
+
+        <!-- Quiz Panel -->
+        <div class="quiz-panel">
+          <!-- Dialogue Box -->
+          <div class="dialogue-box glass-panel" style="border-color:rgba(255,0,127,0.4);">
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+              <span style="font-family:var(--font-mono); font-size:0.6rem; letter-spacing:2px; color:var(--neon-pink);">DESIGN MENTOR</span>
+              <div style="flex:1; height:1px; background:rgba(255,0,127,0.3);"></div>
+            </div>
+            <p class="npc-text" id="dw-quiz-question">"A UI/UX Knight approaches! Tell me ⚡ which principle ensures users can always find their way back on a website?"</p>
+          </div>
+          <!-- XP reward preview -->
+          <div style="display:flex; align-items:center; gap:0.5rem; padding:0 0.5rem;">
+            <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--neon-green);">⚡ CORRECT = +50 XP</span>
+            <span style="font-family:var(--font-mono); font-size:0.6rem; color:var(--neon-red);">L WRONG = -25 HP</span>
+          </div>
+          <!-- Options -->
+          <div class="quiz-options" id="dw-quiz-options">
+            <button class="game-btn btn-hollow quiz-btn dw-quiz-btn" id="dw-opt-a">A) Fitts's Law</button>
+            <button class="game-btn btn-hollow quiz-btn dw-quiz-btn" id="dw-opt-b">B) Breadcrumb Navigation</button>
+            <button class="game-btn btn-hollow quiz-btn dw-quiz-btn" id="dw-opt-c">C) F-Pattern</button>
+            <button class="game-btn btn-hollow quiz-btn dw-quiz-btn" id="dw-opt-d">D) Gestalt Principle</button>
+          </div>
+          <button class="game-btn btn-pink" id="btn-dw-next-quiz" onclick="nextDesignQuestion()" style="display:none; margin-top:1rem;">Next ⚡</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dw-entry')">◀ Flee</button>
+    </section>
+
+    <!-- ⚡ DW SCREEN 4: Design Challenge (Enhanced Builder) ⚡ -->
+    <section id="screen-dw-challenge" class="screen" style="padding:1rem;">
+      <div class="dw-challenge-header">
+        <h1 class="neon-text pink-neon" style="font-size:clamp(1rem,2.5vw,1.6rem);">🎨 UI Forge ⚡ Design Challenge</h1>
+        <div class="dw-mission-badge glass-panel" id="dw-mission-badge">
+          MISSION: BUILD A <strong id="dw-mission-name" style="text-transform: uppercase;">Profile Card</strong>
+        </div>
+        <div class="dw-score-hud">
+          <span class="dw-score-chip" id="chip-ui">UI <b id="sc-ui">0</b></span>
+          <span class="dw-score-chip" id="chip-layout">LAYOUT <b id="sc-layout">0</b></span>
+          <span class="dw-score-chip" id="chip-color">COLOR <b id="sc-color">0</b></span>
+          <span class="dw-score-chip" id="chip-typo">TYPO <b id="sc-typo">0</b></span>
+          <span class="dw-score-chip total" id="chip-total">TOTAL <b id="sc-total">0</b></span>
+        </div>
+      </div>
+
+      <div class="dw-builder-layout">
+        <!-- Component Toolbox -->
+        <div class="dw-toolbox glass-panel">
+          <div class="dw-toolbox-header">⚡ COMPONENTS</div>
+          <div class="dw-tool-list" id="dw-tool-list">
+            <div class="dw-tool" draggable="true" data-type="card" data-score="20,5,10,0"><i class="ph-bold ph-caret-left"></i> Card</div>
+            <div class="dw-tool" draggable="true" data-type="heading" data-score="5,10,5,20"><i class="ph-bold ph-caret-left"></i> H2 Heading</div>
+            <div class="dw-tool" draggable="true" data-type="input" data-score="15,10,5,5"><i class="ph-bold ph-caret-left"></i> Input Field</div>
+            <div class="dw-tool" draggable="true" data-type="btn-primary" data-score="10,5,15,5"><i class="ph-bold ph-caret-left"></i> Primary Btn</div>
+            <div class="dw-tool" draggable="true" data-type="btn-secondary" data-score="5,5,10,5"><i class="ph-bold ph-caret-left"></i> Secondary Btn</div>
+            <div class="dw-tool" draggable="true" data-type="label" data-score="5,5,5,10"><i class="ph-bold ph-caret-left"></i> Label</div>
+            <div class="dw-tool" draggable="true" data-type="divider" data-score="3,8,2,0"><i class="ph-bold ph-caret-left"></i> Divider</div>
+            <div class="dw-tool" draggable="true" data-type="avatar" data-score="5,3,10,0"><i class="ph-bold ph-caret-left"></i> V/H Spacer</div>
+          </div>
+          <button class="game-btn btn-hollow" style="margin-top:1rem; font-size:0.6rem; width:100%;" onclick="clearDWCanvas()"><i class="ph-bold ph-caret-left"></i> Clear</button>
+        </div>
+
+        <!-- Build Canvas -->
+        <div class="dw-canvas-wrap">
+          <div class="dw-device-frame">
+            <div class="dw-device-top-bar">
+              <span class="dw-device-dot" style="background:#ff5f56"></span>
+              <span class="dw-device-dot" style="background:#ffbd2e"></span>
+              <span class="dw-device-dot" style="background:#27c93f"></span>
+              <span style="flex:1; text-align:center; font-size:0.6rem; opacity:0.4; font-family:var(--font-mono);">preview.SkillQuest.app</span>
+            </div>
+            <div class="dw-canvas" id="dw-canvas">
+              <div class="dw-grid-overlay"></div>
+              <div class="dw-canvas-hint" id="dw-canvas-hint">
+                <div style="font-size:3rem;"><⚡</div>
+                <div style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:2px; margin-top:0.5rem;">DRAG COMPONENTS HERE</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feedback Panel -->
+        <div class="dw-feedback-panel glass-panel">
+          <div class="dw-feedback-log" id="dw-feedback-log">
+            <div class="dw-fb-entry">System is watching your design...</div>
+          </div>
+
+          <button class="game-btn btn-pink" style="width:100%; margin-top:1rem;" onclick="submitDWChallenge()">✨ Submit Design</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dw-training')">◀ Back</button>
+    </section>
+
+    <!-- ⚡ DW SCREEN 5: Design Boss Fight ⚡ -->
+    <section id="screen-dw-boss" class="screen">
+
+      <!-- Boss HUD -->
+      <div class="boss-hud">
+        <div class="boss-timer" id="dw-boss-timer" style="color:var(--neon-pink); text-shadow:0 0 20px var(--neon-pink);">01:00</div>
+        <div class="boss-health-bar">
+          <div class="boss-name-label" style="color:var(--neon-pink);">CHAOS CANVAS ⚡ FINAL DESIGN</div>
+          <div class="boss-hp-outer" style="border-color:rgba(255,0,127,0.4);">
+            <div class="boss-hp-inner" id="dw-boss-hp" style="background:linear-gradient(90deg,var(--neon-pink),var(--neon-purple));"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arena: Split between challenge and boss artwork -->
+      <div class="dw-boss-arena">
+        <!-- Boss artwork -->
+        <div class="dw-boss-art float-anim">
+          <img src="../design world/Design Arena level.jpeg" alt="Design Boss" class="dw-boss-img" id="dw-boss-img">
+          <div class="dw-boss-name-plate glass-panel">
+            <span class="neon-text pink-neon" style="font-family:var(--font-mono); font-size:0.75rem;">CHAOS CANVAS</span>
+            <div style="font-size:0.65rem; opacity:0.6;">Level 50 ⚡ Design Arena Boss</div>
+          </div>
+        </div>
+
+        <!-- Design challenge panel -->
+        <div class="dw-boss-challenge glass-panel">
+          <h3 style="font-family:var(--font-mono); font-size:0.65rem; letter-spacing:3px; color:var(--neon-pink); margin-bottom:1rem;">FINAL CHALLENGE: LOGIN SCREEN DESIGN</h3>
+
+          <!-- Mini drag-and-drop builder -->
+          <div class="dw-boss-builder">
+            <div class="dw-boss-tools">
+              <div class="dw-boss-tool" draggable="true" data-type="card" data-pts="20">🤖</div>
+              <div class="dw-boss-tool" draggable="true" data-type="heading" data-pts="10">=$</div>
+              <div class="dw-boss-tool" draggable="true" data-type="input" data-pts="15">🤖</div>
+              <div class="dw-boss-tool" draggable="true" data-type="btn-primary" data-pts="25">▶</div>
+              <div class="dw-boss-tool" draggable="true" data-type="logo" data-pts="10">=7</div>
+              <div class="dw-boss-tool" draggable="true" data-type="avatar" data-pts="8">=d</div>
+            </div>
+            <div class="dw-boss-canvas" id="dw-boss-canvas">
+              <div class="dw-grid-overlay"></div>
+              <div class="dw-canvas-hint" id="dw-boss-canvas-hint" style="font-size:0.6rem;">Drop components to build the login screen</div>
+            </div>
+          </div>
+
+          <!-- Score + HP -->
+          <div class="dw-boss-score-row">
+            <div>
+              <span style="font-size:0.65rem; color:rgba(255,255,255,0.5);">DESIGN SCORE</span>
+              <div class="neon-text pink-neon" style="font-size:2rem; font-family:var(--font-mono);" id="dw-boss-score">0</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <button class="game-btn btn-pink" id="btn-dw-boss-submit" onclick="submitDWBoss()">⚔️ Final Submit</button>
+              <div style="font-size:0.65rem; color:rgba(255,255,255,0.3); text-align:center;" id="dw-boss-feedback">Place at least 3 components</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-map')">◀ Escape</button>
+    </section>
+
+
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: KNOWLEDGE CENTER (Lesson Quest)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-knowledge" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-blue">Neural Knowledge Base</h1>
+        <p>Access encrypted data pads to expand your cognitive protocols.</p>
+      </div>
+      
+      <div class="knowledge-grid" id="knowledge-grid">
+        <!-- HTML Card -->
+        <div class="glass-panel knowledge-card" onclick="openLesson('html')">
+          <div class="k-icon" style="color:#e34c26"><i class="ph-bold ph-layout"></i></div>
+          <h3>HTML 5</h3>
+          <p>Architectural Foundations</p>
+        </div>
+        <!-- CSS Card -->
+        <div class="glass-panel knowledge-card" onclick="openLesson('css')">
+          <div class="k-icon" style="color:#264de4"><i class="ph-bold ph-palette"></i></div>
+          <h3>CSS 3</h3>
+          <p>Visual Style Sheets</p>
+        </div>
+        <!-- JS Card -->
+        <div class="glass-panel knowledge-card" onclick="openLesson('javascript')">
+          <div class="k-icon" style="color:#f7df1e"><i class="ph-bold ph-scroll"></i></div>
+          <h3>JavaScript</h3>
+          <p>Logic Core Engine</p>
+        </div>
+        <!-- Python Card -->
+        <div class="glass-panel knowledge-card" onclick="openLesson('python')">
+          <div class="k-icon" style="color:#3776ab"><i class="ph-bold ph-file-py"></i></div>
+          <h3>Python</h3>
+          <p>AI Protocol Scripting</p>
+        </div>
+      </div>
+
+      <!-- Lesson Content (Pop-in) -->
+      <div id="lesson-overlay" class="lesson-overlay hidden">
+        <div class="glass-panel lesson-pad">
+          <div class="lesson-header">
+            <h2 id="lesson-title" class="neon-text">Lesson Title</h2>
+            <button class="corner-close" onclick="closeLesson()">✕</button>
+          </div>
+          <p id="lesson-desc" style="color:rgba(255,255,255,0.6); margin-bottom:1.5rem;">Lesson Description</p>
+          <div id="lesson-notes" class="lesson-notes">
+            <!-- Notes injected here -->
+          </div>
+          <button class="game-btn btn-cyan" style="margin-top:2rem;" onclick="completeLessonTask()">Complete Lesson</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ Dash</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: CODE NOTEBOOK (Write Quest)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-notebook" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-cyan">Knight's Notebook</h1>
+        <p>A safe sandbox for documentation and structural research.</p>
+      </div>
+
+      <div class="notebook-container glass-panel">
+        <div class="notebook-editor-wrap">
+          <div class="line-gutter" id="notebook-gutter">1<br>2<br>3<br>4<br>5</div>
+          <textarea id="notebook-editor" class="notebook-input" placeholder="// Write 20 lines of your research here..." oninput="syncNotebookGutter()"></textarea>
+        </div>
+        <div class="notebook-footer">
+          <div class="line-counter">Lines: <span id="notebook-count">1</span> / 20</div>
+          <button class="game-btn btn-cyan" onclick="saveNotebook()">💾 Save Entry</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ Dash</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: QUIZ HUB (Win Quest)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-quiz-hub" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-pink">Neural Quiz Laboratory</h1>
+        <p>Select a cognitive domain to test your logic accuracy.</p>
+      </div>
+
+      <div class="quiz-hub-grid">
+        <div class="glass-panel hub-card" onclick="startCategoryQuiz('web')">
+          <div class="hub-icon"><i class="ph-bold ph-globe"></i></div>
+          <h3>Web Mastery</h3>
+          <span>HTML & CSS Protocols</span>
+        </div>
+        <div class="glass-panel hub-card" onclick="startCategoryQuiz('python')">
+          <div class="hub-icon"><i class="ph-bold ph-terminal"></i></div>
+          <h3>AI Backend</h3>
+          <span>Python Language Sets</span>
+        </div>
+        <div class="glass-panel hub-card" onclick="startCategoryQuiz('logic')">
+          <div class="hub-icon"><i class="ph-bold ph-brain"></i></div>
+          <h3>Code Logic</h3>
+          <span>Core Mathematical Patterns</span>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ Dash</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 8: SKILL TREE
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-skills" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-purple">Tactical Skill Tree</h1>
+        <p>Unlock advanced protocols using your Skill Points.</p>
+      </div>
+
+      <div class="skill-tree-container glass-panel">
+        <div class="skill-node branch-active" onclick="unlockSkill('hint')">
+          <div class="skill-icon"><i class="ph-bold ph-lightbulb"></i></div>
+          <div class="skill-info">
+            <h4>ANALYSIS HINT</h4>
+            <p>Reveal extra data during quizzes.</p>
+          </div>
+        </div>
+        
+        <div class="skill-connector"></div>
+
+        <div class="skill-node locked" onclick="unlockSkill('doubleXp')">
+          <div class="skill-icon"><i class="ph-bold ph-trend-up"></i></div>
+          <div class="skill-info">
+            <h4>X2 MULTIPLIER</h4>
+            <p>Double all XP gained in missions.</p>
+          </div>
+        </div>
+
+        <div class="skill-connector"></div>
+
+        <div class="skill-node locked" onclick="unlockSkill('timeDilator')">
+          <div class="skill-icon"><i class="ph-bold ph-hourglass"></i></div>
+          <div class="skill-info">
+            <h4>CHRONO SYNC</h4>
+            <p>Adds +15s to all timed challenges.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ HQ</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 9: PREMIUM ANALYTICS
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-analytics" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-blue">Mastery Analytics</h1>
+        <p>Data-driven insights into your coding evolution.</p>
+      </div>
+
+      <div class="analytics-grid">
+        <div class="analytics-card glass-panel chart-container">
+          <h4>TOPIC MASTERY</h4>
+          <div class="bar-chart-mock" id="mastery-chart">
+            <div class="bar-item"><div class="bar" style="height: 80%; background: var(--neon-blue);"></div><span>Syntax</span></div>
+            <div class="bar-item"><div class="bar" style="height: 60%; background: var(--neon-purple);"></div><span>Logic</span></div>
+            <div class="bar-item"><div class="bar" style="height: 40%; background: var(--neon-pink);"></div><span>Design</span></div>
+          </div>
+        </div>
+        <div class="analytics-card glass-panel">
+          <h4>NEURAL LOAD</h4>
+          <div class="circular-progress-mock">
+            <svg viewBox="0 0 36 36" class="circular-chart">
+              <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="circle" stroke-dasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <text x="18" y="20.35" class="percentage">75%</text>
+            </svg>
+          </div>
+        </div>
+        <div class="analytics-card glass-panel" style="grid-column: span 2;">
+          <h4>ACCURACY HISTORY</h4>
+          <div class="line-graph-mock">
+            <svg viewBox="0 0 400 100" class="line-chart">
+              <path d="M0,80 L50,60 L100,70 L150,40 L200,50 L250,20 L300,30 L350,10 L400,15" fill="none" stroke="var(--neon-cyan)" stroke-width="2"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ HQ</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 10: MINI-GAME (MEMORY FLIP)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-mini-game" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-blue">Memory Sync</h1>
+        <p>Match the pairs to synchronize your logic circuits.</p>
+      </div>
+
+      <div class="memory-grid-wrapper">
+         <div class="memory-grid" id="memory-grid">
+            <!-- Cards generated by app.js -->
+         </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ Abandon</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN 11: LEARNING PATHS
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-learning-paths" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-blue">Learning Paths</h1>
+        <p>Master specialized tracks. Complete each level to unlock the next.</p>
+      </div>
+      
+      <div class="paths-layout" style="display: flex; gap: 2rem; max-width: 1200px; width: 100%; margin: 0 auto; margin-top: 1rem; height: 75vh;">
+        <!-- Left Column: Tracks -->
+        <div class="paths-sidebar glass-panel" style="flex: 1; display: flex; flex-direction: column; overflow-y: auto;">
+          <h3 style="color:var(--neon-blue); border-bottom: 1px solid rgba(0, 240, 255, 0.3); padding-bottom: 0.5rem; margin-bottom: 1rem;">Skill Tracks</h3>
+          <div class="track-list" id="track-list" style="display: flex; flex-direction: column; gap: 0.8rem;">
+            <!-- Populated by JS -->
+          </div>
+          
+          <div style="margin-top:auto; padding-top:1.5rem;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+              <h4 style="font-size:0.75rem; color:rgba(255,255,255,0.6);">Overall Mastery</h4>
+              <span id="overall-path-pct" style="font-family:var(--font-mono); font-size:0.75rem; color:var(--neon-blue);">0%</span>
+            </div>
+            <div class="xp-bar-wrap"><div class="xp-bar-fill" id="overall-path-progress" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- Right Column: Track Details & Levels -->
+        <div class="path-details glass-panel" id="path-details-panel" style="flex: 2; display: flex; flex-direction: column; overflow-y: auto; position: relative;">
+          <div style="text-align: center; margin-top: 20%; color: rgba(255,255,255,0.5);">
+            <i class="ph-bold ph-compass" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+            <h2>Select a Path</h2>
+            <p>Choose a skill track from the left to view levels and content.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Modal inside Learning Paths (for Video/Reading) -->
+      <div id="path-action-modal" class="modal-overlay hidden" style="position: absolute; inset: 0; background: rgba(0,0,0,0.8); z-index: 50; display: flex; justify-content: center; align-items: center; border-radius: var(--radius-lg); opacity: 0; pointer-events: none; transition: opacity 0.3s;">
+        <div class="glass-panel" style="width: 90%; max-width: 800px; max-height: 90%; overflow-y: auto; display: flex; flex-direction: column;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">
+            <h2 id="path-action-title" class="neon-text glow-blue">Action</h2>
+            <button class="game-btn btn-hollow" onclick="closePathAction()" style="padding: 5px 10px;">✕</button>
+          </div>
+          <div id="path-action-content" style="flex-grow: 1; display:flex; flex-direction:column; gap:1rem;">
+             <!-- Video/Text injected here -->
+          </div>
+          <button class="game-btn btn-cyan" id="btn-complete-path-action" style="margin-top: 1.5rem; align-self: center;" onclick="completePathAction()">✅ Mark Completed</button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ HQ</button>
+    </section>
+
+    <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+         SCREEN: FRIEND CHALLENGES (PRO ONLY)
+    PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+    <section id="screen-friend-challenges" class="screen">
+      <div class="selection-header">
+        <h1 class="neon-text glow-purple">Knight Network Duel</h1>
+        <p>Challenge other Elite Knights to real-time logic duels.</p>
+      </div>
+
+      <div class="challenges-layout" style="display: grid; grid-template-columns: 1fr 350px; gap: 2rem; max-width: 1200px; width: 100%; margin: 1rem auto; height: 70vh;">
+        <!-- Left: Rivals List -->
+        <div class="rivals-panel glass-panel" style="overflow-y: auto; padding: 1.5rem;">
+          <h3 style="color: var(--neon-purple); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+            <i class="ph-bold ph-users"></i> ACTIVE RIVALS
+          </h3>
+          <div id="rivals-list" class="rivals-list-container" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Right: Global Rankings & Stats -->
+        <div class="network-sidebar glass-panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;">
+          <div class="network-status">
+            <h4 style="font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 0.5rem;">GLOBAL STATUS</h4>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <div class="status-pulse" style="width: 8px; height: 8px; background: var(--neon-green); border-radius: 50%; box-shadow: 0 0 10px var(--neon-green);"></div>
+              <span style="font-size: 0.9rem; color: var(--neon-green);">Network Synchronized</span>
+            </div>
+            <p style="font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 0.5rem;">1,248 Knights Online</p>
+          </div>
+
+          <div class="duel-stats">
+             <h4 style="font-size: 0.7rem; color: rgba(255,255,255,0.4); letter-spacing: 2px; margin-bottom: 0.5rem;">YOUR RECORD</h4>
+             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+               <div class="stat-mini-box glass-panel" style="text-align: center; padding: 10px;">
+                 <div style="font-size: 1.2rem; color: var(--neon-green); font-weight: 900;">12</div>
+                 <div style="font-size: 0.6rem; opacity: 0.5;">WINS</div>
+               </div>
+               <div class="stat-mini-box glass-panel" style="text-align: center; padding: 10px;">
+                 <div style="font-size: 1.2rem; color: var(--neon-red); font-weight: 900;">4</div>
+                 <div style="font-size: 0.6rem; opacity: 0.5;">LOSSES</div>
+               </div>
+             </div>
+          </div>
+
+          <button class="game-btn btn-purple" style="width: 100%; margin-top: auto;" onclick="speak('Searching for a random match...')">
+            <i class="ph-bold ph-magnifying-glass"></i> QUICK MATCH
+          </button>
+        </div>
+      </div>
+
+      <button class="game-btn btn-hollow corner-close" onclick="navigateTo('screen-dashboard')">◀ HQ</button>
+    </section>
+
+  </div><!-- / app-container -->
+
+
+  <!-- PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+       GLOBAL: Floating Guide
+  PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP -->
+  <!-- ⚡ LAYER 3: GLOBAL GUIDE INTERFACE ⚡ -->
+  <div id="global-guide" class="floating-guide hidden">
+    <div class="guide-wrapper">
+      <div class="guide-bubble glass-panel" id="guide-bubble">
+        <div class="bubble-edge"></div>
+        <div class="bubble-content">
+          <div class="guide-name-tag" id="guide-name-tag">SYSTEM</div>
+          <span id="guide-bubble-text">Operational status nominal. Ready for commands.</span>
+          <div class="guide-ai-input-wrap">
+            <input type="text" id="guide-ai-input" placeholder="Ask AI Assistant..." onkeydown="handleGuideAI(event)">
+            <button class="ai-harder-btn" id="btn-ai-harder" title="Make it harder⚡" onclick="makeAIHarder()">🔥</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="guide-avatar-system" onclick="toggleGuideDialog()">
+        <div class="avatar-ring-outer"></div>
+        <div class="avatar-ring-inner"></div>
+        <img src="" alt="Guide" id="guide-avatar-img" class="guide-avatar-core">
+        <div class="guide-status-orbit">
+          <div class="status-dot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- CHALLENGE GATE MODAL (Newly Integrated) -->
+    <div id="challenge-modal" class="modal-overlay hidden">
+      <div class="challenge-card glass-panel animate-in">
+        <div class="challenge-header">
+          <div class="ch-badge">CHALLENGE DETECTED</div>
+          <h2 id="ch-title">Security Protocol</h2>
+        </div>
+        
+        <div class="challenge-body">
+          <div class="ch-instruction" id="ch-desc">Complete this neural challenge to unlock the next corridor.</div>
+          
+          <div class="ch-game-viewport" id="ch-game-viewport">
+            <!-- Mini-game injected here -->
+            <div class="ch-game-placeholder">
+              <div class="neural-nodes"></div>
+              <span>Preparing Neural Challenge...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="challenge-footer" id="ch-footer">
+          <button class="game-btn btn-purple btn-large" id="btn-start-challenge" onclick="startMiniGame()">START CHALLENGE</button>
+        </div>
+
+        <div class="challenge-result-overlay" id="ch-result-overlay">
+          <div class="res-content">
+            <h2 id="res-title">SUCCESS</h2>
+            <div class="res-xp-badge">+250 XP REWARD</div>
+            <p id="res-msg">Path to next zone established.</p>
+            <button class="game-btn btn-cyan" id="btn-res-action">CONTINUE</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🌟 PREMIUM LEVEL UP MODAL 🌟 -->
+    <div id="premium-lvl-modal" class="lvl-up-overlay">
+      <div class="lvl-up-glow"></div>
+      <div class="lvl-up-card">
+        <h1 class="lvl-up-title neon-text">LEVEL UP!</h1>
+        <div class="lvl-up-rank" id="modal-rank-name">ROOKIE DEVELOPER</div>
+        
+        <div style="display:flex; justify-content:center; gap:2rem; margin-bottom:2rem;">
+          <div class="lvl-box">
+            <span style="font-size:0.8rem; opacity:0.5;">FROM</span>
+            <div id="modal-lvl-old" style="font-size:3rem; font-weight:900;">10</div>
+          </div>
+          <div style="font-size:3rem; align-self:center; color:var(--neon-blue);">→</div>
+          <div class="lvl-box">
+            <span style="font-size:0.8rem; opacity:0.5; color:var(--neon-blue);">TO</span>
+            <div id="modal-lvl-new" style="font-size:3rem; font-weight:900; color:var(--neon-blue);">11</div>
+          </div>
+        </div>
+
+        <div class="unlocked-reward glass-panel" style="padding:1rem; border-color:var(--neon-green);">
+          <i class="ph-fill ph-shield-check" style="font-size:2rem; color:var(--neon-green);"></i>
+          <p style="margin-top:0.5rem; font-size:0.9rem;">UNLOCKED: <span id="reward-name" style="color:var(--neon-green);">High-Precision Syntax</span></p>
+        </div>
+
+        <button class="game-btn btn-blue btn-large" style="margin-top:2.5rem;" onclick="closePremiumLvlModal()">CONTINUE JOURNEY</button>
+      </div>
+    </div>
+
+    <!-- GSAP for Game-level Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+
+  <script src="js/app.js"></script>
+  <!-- Game Feedback Engine — must load AFTER app.js so it can patch gainXP etc. -->
+  <script src="js/gameFeedback.js"></script>
+  
+  <!-- MVP Functional Modules -->
+  <script src="js/progression.js"></script>
+  <script src="js/learning.js"></script>
+  <script src="js/design-logic.js"></script>
+  <script src="js/aiAssistant.js"></script>
+  <script src="js/payments.js"></script>
+</body>
+</html>
